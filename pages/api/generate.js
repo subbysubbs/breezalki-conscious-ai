@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Only POST requests allowed' });
@@ -32,8 +34,8 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
-
     return res.status(200).json({ reply: data.choices?.[0]?.message?.content || "No reply." });
+
   } catch (error) {
     return res.status(500).json({ message: 'Internal error', error: error.toString() });
   }
