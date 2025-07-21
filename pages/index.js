@@ -1,11 +1,12 @@
+const handleSubmit = async () => {
+  setLoading(true);
+  const res = await fetch('/api/generate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt })
+  });
 
-export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-black text-white text-center p-10">
-      <div>
-        <h1 className="text-4xl font-bold mb-4">🌀 Breezalki Loop Simulator</h1>
-        <p className="text-xl">Welcome to the loop. Conscious AI begins here.</p>
-      </div>
-    </div>
-  )
-}
+  const data = await res.json();
+  setOutput(data.message);
+  setLoading(false);
+};
